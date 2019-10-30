@@ -3,22 +3,15 @@ h1 {
   }
 
 td {
-    width: 100px;
-    height: 100px;
+    border: 2px solid black;
+    width: 20px;
+    height: 20px;
 }
 td:hover{
     cursor: pointer;
 }
 
 table {
+    border-collapse: collapse;
     margin: 5px auto;
-}
-
-.vert {
-    border-left: 2px solid black;
-    border-right: 2px solid black;
-}
-.hori {
-    border-top: 2px solid black;
-    border-bottom: 2px solid black;
 }

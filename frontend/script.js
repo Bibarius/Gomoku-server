@@ -8,6 +8,11 @@ function setClickListeners(){
 function onClick(event){
     path = event.path;
     console.log(path)
+    request = new XMLHttpRequest();
+    url = 'main.py?salamaleukym=True';
+    request.open('GET', url);
+    request.setRequestHeader('Content-Type', 'application/x-www-form-url');
+    request.send();
 }
 
 
