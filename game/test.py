@@ -131,12 +131,12 @@ class Node:
             for i in self.childs:
 
                 if i.board.evaluate() == 100:
-                    i.current_eval = 100
+                    self.current_eval = 100
                     self.pref_move = i
                     return
 
                 if i.board.evaluate() == -100:
-                    i.current_eval = -100
+                    self.current_eval = -100
                     self.pref_move = i 
                     return
 
