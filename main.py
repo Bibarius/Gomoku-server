@@ -19,6 +19,9 @@ class RequestHandler(BaseHTTPRequestHandler):
             except FileNotFoundError:
                 print('requested file ' + path + ' wasnt found on server')
                 return 1
+            
+            print(self.client_address)
+
             File = f.read()
             self.send_response(200)
 
