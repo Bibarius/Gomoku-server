@@ -130,9 +130,8 @@ class Node:
                     self.pref_move = i
                     return
 
-
                 i.evaluate(depth - 1, self.alpha, self.beta)
-                
+
                 #! Альфа бета отсечение
                 if self.board.turn == COMPUTER:
                     if i.current_eval >= self.alpha:
@@ -143,8 +142,6 @@ class Node:
 
                 if self.alpha >= self.beta:
                     break
-
-
 
             if self.board.turn == COMPUTER:
                 self.pref_move = self.max_child()
@@ -164,9 +161,6 @@ start_time = time.time()
 field = np.zeros((3, 3), dtype=np.int8)
 
 field[1][1] = HUMAN
-
-
-
 
 
 board = Board(field, COMPUTER)
