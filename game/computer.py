@@ -24,8 +24,6 @@ class Board:
         else:
             return 0
 
-
-
     
     def next_turn(self):
         if self.turn == HUMAN:
@@ -115,18 +113,14 @@ class Node:
                 min = i.board.evaluate()
         return min
         
-    def evaluate(self, depth): #!
-
-        #! Проверка терминальных состояний
-        # if self.board.evaluate() == 100:
-        #     self.current_eval = 100
-        #     return
-
-        # if self.board.evaluate() == -100:
-        #     self.current_eval = -100
-        #     return
+    def evaluate(self, depth):        
 
         self.fill_childs() 
+        #! Проверка на ничью
+        if len(self.childs) == 0:
+            self.current_eval = 0
+            return
+
         if depth != 0:
             for i in self.childs:
 
@@ -162,15 +156,18 @@ start_time = time.time()
 
 field = np.zeros((3,3), dtype=np.int8)
 
+field[2][0] = COMPUTER
 field[1][1] = HUMAN
 field[2][2] = COMPUTER
-field[0][2] = HUMAN
+field[0][1] = HUMAN
+
+
 
 board = Board(field, COMPUTER)
 node = Node(board)
 
 print(node.board.field)
-node.evaluate(5)
+node.evaluate(6)
 print('\n')
 print(node.pref_move.board.previous_turn)
 
