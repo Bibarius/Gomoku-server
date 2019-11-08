@@ -10,7 +10,11 @@ class Board:
     def __init__(self, field, turn):
         self.field = field
         self.turn = turn
+
+        """Ход который привел к текущему состоянию доски"""
         self.previous_turn = []
+
+    """Проверка выигрышной ситуации на доске"""
 
     def evaluate(self):
         if self.winning(COMPUTER):
@@ -19,27 +23,6 @@ class Board:
             return -100
         else:
             return 0
-
-    def next_turn(self):
-        if self.turn == HUMAN:
-            return COMPUTER
-        else:
-            return HUMAN
-
-    def clone(self):
-        new_field = np.copy(self.field)
-        return Board(new_field, self.turn)
-
-    def place_turn(self, y, x):
-        temp = self.clone()
-        temp.field[y][x] = temp.turn
-
-        """Делаем так чтобы экземпляр доски в ноде хранил ход который привел к этому состоянию"""
-        temp.previous_turn.append(y)
-        temp.previous_turn.append(x)
-
-        temp.turn = temp.next_turn()
-        return temp
 
     def winning(self, player):
         if (
@@ -55,6 +38,31 @@ class Board:
         ):
             return True
 
+    def next_turn(self):
+        if self.turn == HUMAN:
+            return COMPUTER
+        else:
+            return HUMAN
+
+    """Получить копию доски"""
+
+    def clone(self):
+        new_field = np.copy(self.field)
+        return Board(new_field, self.turn)
+
+    """Получить копию доски c поставленным заданным ходом"""
+
+    def place_turn(self, y, x):
+        temp = self.clone()
+        temp.field[y][x] = temp.turn
+
+        #*Делаем так чтобы экземпляр доски в ноде хранил ход который привел к этому состоянию
+        temp.previous_turn.append(y)
+        temp.previous_turn.append(x)
+
+        temp.turn = temp.next_turn()
+        return temp
+
 
 class Node:
     def __init__(self, board):
@@ -64,7 +72,10 @@ class Node:
         self.alpha = -10000000
         self.beta = 1000000
 
+        """Эвристическая оценка данного узла"""
         self.current_eval = 0
+
+        """Выбранный следующий ход для данного узла"""
         self.pref_move = 0
 
     def add_child(self, board):
@@ -120,7 +131,6 @@ class Node:
         if depth != 0:
             for i in self.childs:
 
-
                 evaluate = i.board.evaluate()
                 if evaluate == 100 or -100:
                     self.current_eval = evaluate
@@ -137,7 +147,6 @@ class Node:
                         self.beta = i.current_eval
 
                 if self.alpha >= self.beta:
-                    #print(self.board.field)
                     break
 
             if self.board.turn == COMPUTER:
@@ -164,7 +173,7 @@ board = Board(field, COMPUTER)
 node = Node(board)
 
 print(node.board.field)
-node.evaluate(10)
+node.evaluate(11)
 print('\n')
 print(node.pref_move.board.previous_turn)
 
