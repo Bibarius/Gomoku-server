@@ -120,15 +120,11 @@ class Node:
         if depth != 0:
             for i in self.childs:
 
-                if i.board.evaluate() == 100:
-                    self.current_eval = 100
-                    self.pref_move = i
-                    return
 
-                if i.board.evaluate() == -100:
-                    self.current_eval = -100
+                evaluate = i.board.evaluate()
+                if evaluate == 100 or -100:
+                    self.current_eval = evaluate
                     self.pref_move = i
-                    return
 
                 i.evaluate(depth - 1, self.alpha, self.beta)
 
@@ -141,6 +137,7 @@ class Node:
                         self.beta = i.current_eval
 
                 if self.alpha >= self.beta:
+                    #print(self.board.field)
                     break
 
             if self.board.turn == COMPUTER:
