@@ -27,16 +27,16 @@ function onClick(event){
         move: move
     }
 
-    console.log(JSON.stringify(data));
+    datastr = JSON.stringify(data)
     
 
-
-
     request = new XMLHttpRequest();
-    url = 'ain.py';
+    url = '/solve' + '*?data=' + datastr
     request.open('GET', url);
-    request.setRequestHeader('Content-Type', 'application/x-www-form-url');
     request.send();
+    request.onload = function() {
+        console.log(request.response);
+      };
 }   
 
 window.onload = function(){
