@@ -1,5 +1,5 @@
 function setClickListeners(){
-    cells = document.getElementsByClassName('cell')
+    cells = document.getElementsByTagName('td') 
     for(i = 0; i < cells.length; i++){
         cells[i].addEventListener('click', onClick);
     }
