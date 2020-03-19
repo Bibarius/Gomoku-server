@@ -135,12 +135,12 @@ class Node:
                 #! Альфа бета отсечение
                 if self.board.turn == COMPUTER:
                     if i.current_eval >= self.alpha:
-                        self.alpha = i.current_eval
+                        i.alpha = i.current_eval
                 else:
                     if i.current_eval <= self.beta:
-                        self.beta = i.current_eval
+                        i.beta = i.current_eval
 
-                if self.alpha >= self.beta:
+                if i.alpha >= i.beta:
                     break
 
             if self.board.turn == COMPUTER:
@@ -167,7 +167,7 @@ board = Board(field, COMPUTER)
 node = Node(board)
 
 print(node.board.field)
-node.evaluate(10)
+node.evaluate(8)
 print('\n')
 print(node.pref_move.board.previous_turn)
 
