@@ -2,7 +2,8 @@ from http.server import *
 import json
 from urllib.parse import parse_qs
 import os
-import game
+from game import computer
+
 
 class RequestHandler(BaseHTTPRequestHandler):
 
@@ -19,15 +20,12 @@ class RequestHandler(BaseHTTPRequestHandler):
         elif path[:5] == 'solve':
             data = parse_qs(self.path)['/solve*?data'][0]
             jdata = json.loads(data)
-            field = jdata['field']
-            move = jdata['move']
 
-            print('field = ', field)
-            print('move = ', move)
-
-
-            #!TODO ЗДЕСЬ БУДЕТ ИДТИ РЕШЕНИЕ ДОСКИ И ОТПРАВКА НАЗАД
             
+
+            
+            computer.solve(jdata)
+
 
 
         else:
