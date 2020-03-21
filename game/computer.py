@@ -8,19 +8,20 @@ from .node import *
 HUMAN = 1
 COMPUTER = 2
 
-#!TODO
-def solve(data): 
+
+def solve(data):
     """засекли время"""
     start_time = time.time()
 
     field = np.reshape(np.array(data['field']), (3, 3))
-    move = data['move']
-    
+    board = Board(field, COMPUTER)
+    node = Node(board)
+    node.evaluate(8)
 
-    print("\n--- %s seconds ---" % (time.time() - start_time))
+    t = time.time() - start_time
+    move = node.pref_move.board.previous_turn
 
-
-
+    return json.dumps({'time': t, 'move': move})
 
 def main():
     field = np.zeros((3, 3), dtype=np.int8)
@@ -35,6 +36,7 @@ def main():
     print(node.pref_move.board.previous_turn)
 
     print('\n')
+
 
 if __name__ == "__main__":
     main()

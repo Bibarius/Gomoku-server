@@ -21,21 +21,24 @@ class RequestHandler(BaseHTTPRequestHandler):
             data = parse_qs(self.path)['/solve*?data'][0]
             jdata = json.loads(data)
 
-            
+            solved = computer.solve(jdata)
+            response = bytes(solved, 'utf8')
 
-            
-            computer.solve(jdata)
+            self.send_response(200)
+            self.send_header('Content-Lenth', str(len(response)))
+            self.end_headers()
+            self.wfile.write(response)
 
-
+            # self.wfile.write(json.dumps(response))
 
         else:
-            try:                
+            try:
                 f = open('frontend/' + path, 'rb')
             except FileNotFoundError:
                 print(path)
                 print('requested file ' + path + ' wasnt found on server')
                 return 1
-            
+
             print(self.client_address)
 
             File = f.read()
@@ -49,10 +52,7 @@ class RequestHandler(BaseHTTPRequestHandler):
             self.wfile.write(File)
 
 
-
-
 if __name__ == "__main__":
     serverAddress = ('', 8080)
     server = HTTPServer(serverAddress, RequestHandler)
     server.serve_forever()
-    
