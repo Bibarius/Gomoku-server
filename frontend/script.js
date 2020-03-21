@@ -1,3 +1,6 @@
+const COMPUTER = 'O'
+const HUMAN = 'X'
+
 function setClickListeners(){
     cells = document.getElementsByTagName('td') 
     for(i = 0; i < cells.length; i++){
@@ -6,6 +9,7 @@ function setClickListeners(){
 }
 
 function onClick(event){
+    event.currentTarget.innerText = 'X'
     let arr = []
     tds = document.getElementsByTagName('td')
     for(var i = 0; i < 9; i++){
