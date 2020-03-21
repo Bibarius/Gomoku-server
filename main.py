@@ -10,7 +10,13 @@ class RequestHandler(BaseHTTPRequestHandler):
     def do_GET(self):
         path = self.path[1:]
         if not path:
-            f = open("frontend/index.html", "rb")
+            try:
+                f = open("frontend/index.html", "rb")
+            except FileNotFoundError:
+                print(path)
+                print('requested file ' + path + ' wasnt found on server')
+                return 1
+            
             File = f.read()
             self.send_response(200)
             self.send_header('Content-Lenth', str(len(File)))
@@ -28,8 +34,6 @@ class RequestHandler(BaseHTTPRequestHandler):
             self.send_header('Content-Lenth', str(len(response)))
             self.end_headers()
             self.wfile.write(response)
-
-            # self.wfile.write(json.dumps(response))
 
         else:
             try:
