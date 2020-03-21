@@ -9,6 +9,10 @@ function setClickListeners(){
 }
 
 function onClick(event){
+    if(event.currentTarget.innerText != ''){
+        return
+    }
+
     event.currentTarget.innerText = 'X'
     let arr = []
     tds = document.getElementsByTagName('td')
