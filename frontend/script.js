@@ -39,7 +39,11 @@ function onClick(event){
     request.open('GET', url);
     request.send();
     request.onload = function() {
-        console.log(request.response);
+        resp = JSON.parse(request.response)
+        time = resp.time
+
+        move = resp.move.toString()
+        document.getElementById(move).innerText = 'O'
       };
 }   
 
